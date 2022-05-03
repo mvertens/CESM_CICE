@@ -242,6 +242,7 @@ def _create_namelists(case, confdir, infile, nmlgen):
             'icefields_drag_nml',
             'icefields_mechred_nml',
             'icefields_pond_nml',
+            'icefields_fsd_nml',
             'icefields_snow_nml',
             'icefields_nml']
 
