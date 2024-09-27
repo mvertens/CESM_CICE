@@ -264,7 +264,7 @@
   <!-- =========================== -->
 
   <entry id="histfreq">
-    <type>char(10)</type>
+    <type>char(5)</type>
     <category>setup</category>
     <group>setup_nml</group>
     <desc>
@@ -289,15 +289,27 @@
     </values>
   </entry>
 
+  <entry id="hist_suffix">
+    <type>char(5)</type>
+    <category>setup</category>
+    <group>setup_nml</group>
+    <desc>
+      add string to h in filename
+    </desc>
+    <values>
+      <value>x,1,2,3,4</value>
+    </values>
+  </entry>
+
   <entry id="dumpfreq">
-    <type>char</type>
+    <type>char(5)</type>
     <category>setup</category>
     <group>setup_nml</group>
     <desc>
       frequency of restart output (once per 1,h,d,m,y)
     </desc>
     <values>
-      <value>x</value>
+      <value>x,x,x,x,x</value>
     </values>
   </entry>
 
@@ -309,19 +321,32 @@
       frequency of restart output (10 = once per 10 h,d,m,y)
     </desc>
     <values>
-      <value>1</value>
+      <value>1,1,1,1,1</value>
     </values>
   </entry>
 
   <entry id="hist_avg">
-    <type>logical</type>
+    <type>logical(5)</type>
     <category>setup</category>
     <group>setup_nml</group>
     <desc>
       if true, write time-averages (not snapshots)
     </desc>
     <values>
-      <value>.true.</value>
+      <value>.true.,.true.,.true.,.true.,.true.</value>
+    </values>
+  </entry>
+
+  <entry id="hist_time_axis">
+    <type>char</type>
+    <category>setup</category>
+    <group>setup_nml</group>
+    <desc>
+      Position of history file time axis
+    </desc>
+    <valid_values>begin,middle,end</valid_values>
+    <values>
+      <value>middle</value>
     </values>
   </entry>
 
@@ -425,18 +450,6 @@
     </values>
   </entry>
 
-  <entry id="lcdf64">
-    <type>logical</type>
-    <category>setup</category>
-    <group>setup_nml</group>
-    <desc>
-      64 bit offset
-    </desc>
-    <values>
-      <value>.true. </value>
-    </values>
-  </entry>
-
   <!-- =========================== -->
   <!-- Grid info -->
   <!-- =========================== -->
@@ -466,6 +479,7 @@
     <values>
       <value>displaced_pole</value>
       <value hgrid="tx0.66v1">tripole</value>
+      <value hgrid="tx2_3v2">tripole</value>
       <value hgrid="tx0.1v2">tripole</value>
       <value hgrid="tx0.1v3">tripole</value>
       <value hgrid="tx1v1">tripole</value>
@@ -533,6 +547,7 @@
       <value hgrid="gx1v7">$DIN_LOC_ROOT/ocn/pop/gx1v7/grid/horiz_grid_20010402.ieeer8</value>
       <value hgrid="gx3v7">$DIN_LOC_ROOT/ocn/pop/gx3v7/grid/horiz_grid_20030806.ieeer8</value>
       <value hgrid="tx0.66v1">$DIN_LOC_ROOT/ocn/mom/tx0.66v1/grid/horiz_grid_20190315.ieeer8</value>
+      <value hgrid="tx2_3v2">/glade/work/gmarques/cesm/tx2_3/seaice_files/horiz_grid_20230416.ieeer8</value>
       <value hgrid="tx0.1v2">$DIN_LOC_ROOT/ocn/pop/tx0.1v2/grid/horiz_grid_200709.ieeer8</value>
       <value hgrid="tx0.1v3">$DIN_LOC_ROOT/ocn/pop/tx0.1v3/grid/horiz_grid_200709.ieeer8</value>
       <value hgrid="tx1v1">$DIN_LOC_ROOT/ocn/pop/tx1v1/grid/horiz_grid_20050510.ieeer8</value>
@@ -560,6 +575,7 @@
       <value hgrid="gx1v6">$DIN_LOC_ROOT/ocn/pop/gx1v6/grid/topography_20090204.ieeei4</value>
       <value hgrid="gx1v7">$DIN_LOC_ROOT/ocn/pop/gx1v7/grid/topography_20161215.ieeei4</value>
       <value hgrid="tx0.66v1">$DIN_LOC_ROOT/ocn/mom/tx0.66v1/grid/topography_20190315.ieeei4</value>
+      <value hgrid="tx2_3v2">/glade/work/gmarques/cesm/tx2_3/seaice_files/topography_20230416.ieeei4</value>
       <value hgrid="gx3v7">$DIN_LOC_ROOT/ocn/pop/gx3v7/grid/topography_20100105.ieeei4</value>
       <value hgrid="tx0.1v2">$DIN_LOC_ROOT/ocn/pop/tx0.1v2/grid/topography_200709.ieeei4</value>
       <value hgrid="tx0.1v3">$DIN_LOC_ROOT/ocn/pop/tx0.1v3/grid/topography_20170718.ieeei4</value>
@@ -881,6 +897,7 @@
     <values>
       <value>open</value>
       <value hgrid ='tx0.66v1'>tripole</value>
+      <value hgrid ='tx2_3v2'>tripole</value>
       <value hgrid ='tx0.1v2'>tripole</value>
       <value hgrid ='tx0.1v3'>tripole</value>
       <value hgrid ='tx1v1'>tripole</value>
@@ -1403,6 +1420,30 @@
     </desc>
     <values>
       <value>0.85</value>
+    </values>
+  </entry>
+
+  <entry id="Tliquidus_max">
+    <type>real</type>
+    <category>parameterizations</category>
+    <group>thermo_nml</group>
+    <desc>
+      Maximum temperature for new frazil
+    </desc>
+    <values>
+      <value>-0.1</value>
+    </values>
+  </entry>
+
+  <entry id="hi_min">
+    <type>real</type>
+    <category>parameterizations</category>
+    <group>thermo_nml</group>
+    <desc>
+      Minimum ice thickness allowed
+    </desc>
+    <values>
+      <value>0.01</value> 
     </values>
   </entry>
 
@@ -5418,6 +5459,18 @@
     </values>
   </entry>
 
+  <entry id="f_afsdn">
+    <type>char</type>
+    <category>history</category>
+    <group>icefields_fsd_nml</group>
+    <desc>
+    </desc>
+    <values>
+      <value>xxxxx</value>
+      <value cice_mode='prescribed'>xxxxx</value>
+    </values>
+  </entry>
+
   <entry id="f_dafsd_newi">
     <type>char</type>
     <category>history</category>
@@ -5467,6 +5520,66 @@
   </entry>
 
   <entry id="f_dafsd_weld">
+    <type>char</type>
+    <category>history</category>
+    <group>icefields_fsd_nml</group>
+    <desc>
+    </desc>
+    <values>
+      <value>xxxxx</value>
+      <value cice_mode='prescribed'>xxxxx</value>
+    </values>
+  </entry>
+
+  <entry id="f_wave_sig_ht">
+    <type>char</type>
+    <category>history</category>
+    <group>icefields_fsd_nml</group>
+    <desc>
+    </desc>
+    <values>
+      <value>xxxxx</value>
+      <value cice_mode='prescribed'>xxxxx</value>
+    </values>
+  </entry>
+
+  <entry id="f_diam_ww">
+    <type>char</type>
+    <category>history</category>
+    <group>icefields_fsd_nml</group>
+    <desc>
+    </desc>
+    <values>
+      <value>xxxxx</value>
+      <value cice_mode='prescribed'>xxxxx</value>
+    </values>
+  </entry>
+
+  <entry id="f_hice_ww">
+    <type>char</type>
+    <category>history</category>
+    <group>icefields_fsd_nml</group>
+    <desc>
+    </desc>
+    <values>
+      <value>xxxxx</value>
+      <value cice_mode='prescribed'>xxxxx</value>
+    </values>
+  </entry>
+
+  <entry id="f_fsdrad">
+    <type>char</type>
+    <category>history</category>
+    <group>icefields_fsd_nml</group>
+    <desc>
+    </desc>
+    <values>
+      <value>xxxxx</value>
+      <value cice_mode='prescribed'>xxxxx</value>
+    </values>
+  </entry>
+
+  <entry id="f_fsdperim">
     <type>char</type>
     <category>history</category>
     <group>icefields_fsd_nml</group>
