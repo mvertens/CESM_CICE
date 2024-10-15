@@ -9,7 +9,7 @@
 # Disable these because this is our standard setup
 # pylint: disable=wildcard-import,unused-wildcard-import,wrong-import-position
 
-import os, shutil, sys, glob, filecmp, imp, re
+import os, shutil, sys, glob, filecmp, re
 
 CIMEROOT = os.environ.get("CIMEROOT")
 if CIMEROOT is None:
@@ -78,8 +78,8 @@ def _create_namelists(case, confdir, infile, nmlgen):
     #----------------------------------------------------
 
     # NOTE that ICE_NCAT is used by both cice and pop - but is set by cice!
-    # It is set in the driver config_component.xml and apears in the env_build.xml file 
-    # It is assumed that the cice buildnml is called BEFORE the pop buildcpp. 
+    # It is set in the driver config_component.xml and apears in the env_build.xml file
+    # It is assumed that the cice buildnml is called BEFORE the pop buildcpp.
     # This order is set by the xml variable COMP_CLASSES in the driver config_component.xml file
 
     cice_mode = case.get_value("CICE_MODE")
@@ -265,7 +265,7 @@ def _create_namelists(case, confdir, infile, nmlgen):
     if ice_ic:
         with open(data_list_path, "a") as fd:
             fd.write(f"ice_ic = {ice_ic}")
-    
+
     logger.debug("cice: grid is %s" %(hgrid))
     logger.debug("cice: physics is %s "%phys)
 
